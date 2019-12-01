@@ -8,7 +8,7 @@ from baseStation import BaseStation
 
 class Graph: 
    
-    def __init__(self, cols = 20, rows = 20):
+    def __init__(self, cols = 100, rows = 100):
         self.cols = cols
         self.rows = rows
         # initialize matrix and fill with zeroes
@@ -59,7 +59,7 @@ class Graph:
 
 if __name__ == '__main__':
 
-    g = Graph(20,20)
+    g = Graph(100,100)
     number_of_nodes = input('number of nodes in network: ')
     number_of_base_stations = input('number of base stations in network: ')
     g.generateRandNodePos(int(number_of_nodes))
