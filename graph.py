@@ -5,6 +5,7 @@ from itertools import product
 from node import Node
 from baseStation import BaseStation
 
+
 class Graph: 
    
     def __init__(self, cols = 20, rows = 20):

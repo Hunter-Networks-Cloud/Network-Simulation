@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-#-------------node class----------------
+#-------------node class-------------
 class Node:
     def __init__(self,x,y,node_name):
         self.x = x
