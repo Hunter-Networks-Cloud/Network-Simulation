@@ -28,13 +28,13 @@ def about():
 def create():
     form = RegistrationForm()
     if form.validate_on_submit():
-        flash(f'Number of Nodes {form.nodes.data}!', 'success')
-        flash(f'Number of Base Stations {form.basestations.data}!', 'success')
+        #flash(f'Number of Nodes {form.nodes.data}!', 'success')
+        #flash(f'Number of Base Stations {form.basestations.data}!', 'success')
         return redirect(url_for('simulation'))
     return render_template('create.html', title='Create', form=form)
 
 @app.route('/simulation')
-def simulationS():
+def simulation():
     return render_template('simulation.html', title= 'Simulation')
 
 if __name__ == '__main__':
