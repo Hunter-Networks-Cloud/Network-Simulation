@@ -1,3 +1,6 @@
+
+import json
+from networkx.readwrite import json_graph
 import networkx as nx
 import matplotlib.pyplot as plt
 from random import randint
@@ -24,17 +27,16 @@ for i in range(int(number_of_base_stations)):
     c_x = randint(0, 100)
     c_y = randint(0, 100)
     
-    G.add_node("B"+ str(i+1),type = 'B', pos=(c_x,c_y), radius = 45, coorX = c_x, coorY = c_y)
+    G.add_node("B"+ str(i+1),name = str(i+1), type = 'B', pos=(c_x,c_y), radius = 45, coorX = c_x, coorY = c_y)
    
 # creates nodes at random positions
 #node attributes are node name, type of node, position and radius 
 for j in range(int(number_of_nodes)): 
     c_x = randint(0, 100)
     c_y = randint(0, 100)
-    G.add_node("N"+ str(j+1),type = "N", pos=(c_x,c_y), radius = 15, coorX = c_x, coorY = c_y)
+    G.add_node("N"+ str(j+1),name = str(j+1), type = "N", pos=(c_x,c_y), radius = 25, coorX = c_x, coorY = c_y)
     # G.add_edge("B"+ str(i+1),"N"+ str(i+1) , weight=0, type = "B_to_N")
-    #       
-    
+  
     # success = False
     # l =  1
     # #loops until it finds a coordinate within a base radius
@@ -58,9 +60,19 @@ for i in range(int(number_of_base_stations)):
     coordX = nx.get_node_attributes(G, 'coorX') #allows us to get the attribute coorX for nodes in the graph
     coordY= nx.get_node_attributes(G, 'coorY')  #allows us to get the attribute coory for nodes in the graph
     for j in range(int(number_of_nodes)):
+        # node_name = nx.get_node_attributes(G, 'name')
+        # print("node: ")
+        # print(node_name["N"+str(j+1)])
+        # print(coordX["N"+str(j+1)], coordY["N"+str(j+1)])
+        # print("base: ")
+        # print(node_name["B"+str(i+1)])
+        # print(coordX["B"+str(i+1)], coordY["B"+str(i+1)])
+        # print("distance: ")
+        # print(calculateDistance(coordX["B"+str(i+1)], coordY["B"+str(i+1)],coordX["N"+str(j+1)], coordY["N"+str(j+1)]))
+        # print("------------------------")
         if calculateDistance(coordX["B"+str(i+1)], coordY["B"+str(i+1)],coordX["N"+str(j+1)], coordY["N"+str(j+1)]) <= 45:
             G.add_edge("N"+ str(j+1), "B"+ str(i+1) , type = 'B_to_N')
-            break
+            # break
 #loop links nodes with nodes that are in its radius
 for i in range(int(number_of_nodes)): 
     coordX = nx.get_node_attributes(G, 'coorX') 
@@ -68,6 +80,7 @@ for i in range(int(number_of_nodes)):
     for j in range(int(number_of_nodes)):
         if i != j: #to prevent a node from adding and edge from and to itself
             if calculateDistance(coordX["N"+str(i+1)], coordY["N"+str(i+1)],coordX["N"+str(j+1)], coordY["N"+str(j+1)]) <= 25:
+                #print(calculateDistance(coordX["N"+str(i+1)], coordY["N"+str(i+1)],coordX["N"+str(j+1)], coordY["N"+str(j+1)]))
                 G.add_edge("N"+ str(i+1),"N"+ str(j+1) , type = 'N_to_N')            
 
 print(G.edges())  #just for testing, it prints all the edges 
@@ -88,4 +101,8 @@ for node in G:
 
 pos=nx.get_node_attributes(G,'pos')
 nx.draw(G,pos,node_color = color_map, with_labels = True, node_size = 40)
-plt.show()
+# plt.show()
+
+d = json_graph.node_link_data(G) # sets all the info from the graph to variable d
+json.dump(d, open('force.json','w')) # puts the graph information into the json file
+print("Wrote node-link JSON data to force/force.json")
