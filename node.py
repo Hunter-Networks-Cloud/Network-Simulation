@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 #-------------node class-------------
 class Node:
-    def __init__(self, node_name, x, y, r):
+    def __init__(self, node_name, pos:tuple, r):
         self.id = node_name        
-        self.pos = (x, y)
+        self.pos = pos
         self.radius = r
 
         #list of neighbors
