@@ -26,15 +26,15 @@ class Graph:
     def addBases(self, num, radius):
         for i in range(num):
             #generating coords between 1 and 100 inclusive
-            x = rand.randint(1,100)
-            y = rand.randint(1,100)
+            x = rand.randint(1, self.cols)
+            y = rand.randint(1, self.rows)
             new_pos = (x, y)
 
             #resolving collisions in base stations and nodes
-            resolveGraphCollisions(self, new_pos)
+            new_pos = resolveGraphCollisions(self, new_pos, self.cols, self.rows)
             
             #once satisfied, add to graph
-            self.base_stations[self.num_base_stations] = BaseStation(self.num_base_stations, new_pos, radius)
+            self.base_stations[i] = BaseStation(self.num_base_stations, new_pos, radius)
 
         #update graph attribute for number of base stations
         self.num_base_stations += num
@@ -45,6 +45,15 @@ class Graph:
     def addEdges(self, num):
         return None
 
+    def getBases(self):
+        return self.base_stations
+
+    def getNodes(self):
+        return self.nodes
+
+    def getEdges(self):
+        return self.edges
+
 #helper function that checks whether some object the container already has the same pos
 def positionOccupied (pos, container):
     for key in container:
@@ -52,8 +61,9 @@ def positionOccupied (pos, container):
             return True
     return False
 
-def resolveGraphCollisions(graph, pos):
+def resolveGraphCollisions(graph, pos, cols, rows):
     while positionOccupied(pos, graph.base_stations) and positionOccupied(pos, graph.nodes):
-        x = rand.randint(1,100)
-        y = rand.randint(1,100)
+        x = rand.randint(1, cols)
+        y = rand.randint(1, rows)
         pos = (x, y)
+    return pos
