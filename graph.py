@@ -34,7 +34,7 @@ class Graph:
             new_pos = resolveGraphCollisions(self, new_pos, self.cols, self.rows)
             
             #once satisfied, add to graph
-            self.base_stations[i] = BaseStation(self.num_base_stations, new_pos, radius)
+            self.base_stations[self.num_base_stations + i] = BaseStation(self.num_base_stations, new_pos, radius)
 
         #update graph attribute for number of base stations
         self.num_base_stations += num
@@ -62,7 +62,7 @@ def positionOccupied (pos, container):
     return False
 
 def resolveGraphCollisions(graph, pos, cols, rows):
-    while positionOccupied(pos, graph.base_stations) and positionOccupied(pos, graph.nodes):
+    while positionOccupied(pos, graph.base_stations) or positionOccupied(pos, graph.nodes):
         x = rand.randint(1, cols)
         y = rand.randint(1, rows)
         pos = (x, y)
