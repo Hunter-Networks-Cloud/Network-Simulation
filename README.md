@@ -1,7 +1,10 @@
 # Network-Simulation
 
 todo list:
+    [[[high priority]]]
+    make nodes in a graph add other nodes that are within radius to their list of neighbors, probably in another method call to graph like "associateNeighbors()" or something
 
+    [[[low priority]]]
     all classes:
         edge case:
             what if you gave them negative numbers for input parameters?
