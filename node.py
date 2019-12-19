@@ -6,6 +6,7 @@ class Node:
         self.pos = pos
         self.radius = r
         self.dijkstraDistance = 100000
+        self.previousId = int(-1)
 
         #list of neighbors
         self.adjacent = []
