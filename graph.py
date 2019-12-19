@@ -37,10 +37,10 @@ class Graph:
             new_pos = resolveGraphCollisions(self, new_pos, self.cols, self.rows)
             
             #once satisfied, add to graph
-            self.base_stations[self.num_base_stations + i] = BaseStation(self.num_base_stations, new_pos, radius)
+            self.base_stations[self.num_base_stations] = BaseStation(self.num_base_stations, new_pos, radius)
 
-        #update graph attribute for number of base stations
-        self.num_base_stations += num
+            #update graph attribute for number of base stations
+            self.num_base_stations += 1
 
     def addNodes(self, num, radius):
         for i in range(num):
@@ -53,13 +53,25 @@ class Graph:
             new_pos = resolveWithinRange(self, new_pos, self.cols, self.rows)
 
             #once satisfied, add to graph
-            self.nodes[self.num_nodes + i] = Node(self.num_base_stations, new_pos, radius)
+            self.nodes[self.num_nodes] = Node(self.num_nodes, new_pos, radius)
         
-        #update graph attribute for number of nodes
-        self.num_nodes += num
+            #update graph attribute for number of nodes
+            self.num_nodes += 1
 
     def addEdges(self, num):
         return None
+
+    #fill out "adjacent" member in graph nodes
+    def addNeighbors(self):
+        for i in range(self.num_nodes):
+            for j in range(self.num_nodes):
+                #print("doing something with ", i, "th node, comparing to ", j, "th node")
+                #print(self.nodes[i].pos, self.nodes[j].pos)
+                distance = calculateDistance(self.nodes[i].pos, self.nodes[j].pos)
+                #print("distance found is ", distance)
+                if distance < self.nodes[i].radius:
+                    #print ("adding node ", j, "to node ", i)
+                    self.nodes[i].addNeighbor(self.nodes[j])
 
     def getBases(self):
         return self.base_stations
@@ -69,6 +81,9 @@ class Graph:
 
     def getEdges(self):
         return self.edges
+
+    def getRoute(self, source, destination):
+        return None
 
 #helper function that checks whether some pos is already occupied by something in the container
 def positionOccupied (pos, container):

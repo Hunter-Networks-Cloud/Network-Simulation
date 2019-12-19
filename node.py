@@ -5,6 +5,7 @@ class Node:
         self.id = node_name        
         self.pos = pos
         self.radius = r
+        self.dijkstraDistance = 100000
 
         #list of neighbors
         self.adjacent = []
@@ -16,9 +17,9 @@ class Node:
     def addNeighbor(self, neighbor):
         self.adjacent.append(neighbor)
 
-    #returns [list?] of keys of adjacent nodes
+    #returns a list of keys of adjacent nodes
     def getConnections(self):
-        return self.adjacent.keys()  
+        return self.adjacent.keys()
 
     def getId(self):
         return self.id
