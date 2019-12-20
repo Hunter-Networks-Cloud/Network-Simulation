@@ -29,29 +29,31 @@ class MyPrompt(Cmd):
             #self.currentGraph.printGraph()
 
     def do_printgraph(self, args):
+        """Prints the graph onto the terminal"""
         self.currentGraph.printGraph()
 
     def do_source(self, args):
+        """Takes one input, the node id, e.g. "source 5"
+        """
         self.source = int(args)
 
     def do_destination(self, args):
+        """Takes one input, the node id, e.g. "destination 5"
+        """
         self.destination = int(args)
 
     def do_route(self, args):
-        """
-        possible_range = list(range(self.currentGraph.num_nodes))
-        if (self.source not in possible_range) or (self.destination not in possible_range):
-            print("Bad source and destination, try again.")
-            return
-        else:
+        """Reports whether a route was found between the source and destination set earlier, and gives path.
         """
         self.currentGraph.getRoute(self.source, self.destination) 
 
     def do_scramble(self, args):
+        """Scrambles the positions of all the nodes except for the set source and destination.\n
+        Note: source and destination need to be set for this command to not crash the program."""
         self.currentGraph.scramble(self.source, self.destination)
 
 
 if __name__ == '__main__':
     prompt = MyPrompt()
-    prompt.prompt = 'Avail. cmds.: start quit printgraph source destination route\n> '
+    prompt.prompt = 'Type help to get availalbe commands\n> '
     prompt.cmdloop('Welcome to the mesh network simulation (simple).')
