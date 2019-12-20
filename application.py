@@ -43,13 +43,13 @@ class MyPrompt(Cmd):
         self.destination = int(args)
 
     def do_route(self, args):
-        """Reports whether a route was found between the source and destination set earlier, and gives path.
+        """Reports whether a route was found between the source and destination set earlier, and gives path.\nNote: source and destination need to be set for this command to not crash the program.
         """
         self.currentGraph.getRoute(self.source, self.destination) 
 
     def do_scramble(self, args):
-        """Scrambles the positions of all the nodes except for the set source and destination.\n
-        Note: source and destination need to be set for this command to not crash the program."""
+        """Scrambles the positions of all the nodes except for the set source and destination.\nNote: source and destination need to be set for this command to not crash the program.
+        """
         self.currentGraph.scramble(self.source, self.destination)
 
 
