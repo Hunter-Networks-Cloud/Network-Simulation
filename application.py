@@ -55,5 +55,5 @@ class MyPrompt(Cmd):
 
 if __name__ == '__main__':
     prompt = MyPrompt()
-    prompt.prompt = 'Type help to get availalbe commands\n> '
+    prompt.prompt = 'Type help to get available commands\n> '
     prompt.cmdloop('Welcome to the mesh network simulation (simple).')
