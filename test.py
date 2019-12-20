@@ -26,3 +26,6 @@ for key in G.getNodes():
     print (G.getNodes()[key].pos, "key ", key, "distance ", G.getNodes()[key].dijkstraDistance, G.getNodes()[key].previousId)
 """
 G.printGraph()
+G.scramble(0,9)
+print("###########################################################################")
+G.printGraph()

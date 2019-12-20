@@ -32,10 +32,10 @@ class MyPrompt(Cmd):
         self.currentGraph.printGraph()
 
     def do_source(self, args):
-        self.source = args
+        self.source = int(args)
 
     def do_destination(self, args):
-        self.destination = args
+        self.destination = int(args)
 
     def do_route(self, args):
         """
@@ -45,7 +45,10 @@ class MyPrompt(Cmd):
             return
         else:
         """
-        self.currentGraph.getRoute(self.source, self.destination)    
+        self.currentGraph.getRoute(self.source, self.destination) 
+
+    def do_scramble(self, args):
+        self.currentGraph.scramble(self.source, self.destination)
 
 
 if __name__ == '__main__':

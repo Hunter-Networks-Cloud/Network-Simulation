@@ -154,6 +154,21 @@ class Graph:
         else:
             print("Path not found.")
 
+    #method for randomizing positions of all but two nodes
+    def scramble(self, source, destination):
+        for node_id in range(self.num_nodes):
+            if (node_id != source) and (node_id != destination):
+                self.nodes.pop(node_id)
+                x = rand.randint(1, self.cols)
+                y = rand.randint(1, self.rows)
+                new_pos = (x, y)
+                
+                #resolving collisions and within-range-ness
+                new_pos = resolveWithinRange(self, new_pos, self.cols, self.rows)                
+                new_node = Node(node_id, new_pos, self.nodes[source].radius)
+                self.nodes[node_id] = new_node
+
+    #helper function printing terminal ASCII representation of graph
     def printGraph(self):
         graphArray = [["-" for i in range(self.cols)] for j in range(self.rows)]
         for base in self.base_stations:
@@ -168,10 +183,6 @@ class Graph:
             for x in range(len(graphArray[0])):
                 print (graphArray[x][y], end = '')
             print("\n", end='')
-
-#helper function printing terminal ASCII representation of graph
-
-
 
 #helper function that checks whether some pos is already occupied by something in the container
 def positionOccupied (pos, container):
