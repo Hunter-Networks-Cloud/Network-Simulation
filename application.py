@@ -8,6 +8,10 @@ class MyPrompt(Cmd):
     currentGraph = Graph(100,100)
     source = -1
     destination = -1
+    num_nodes = 0
+    node_radius = 0
+    num_bases = 0
+    base_radius = 0
 
     def do_quit(self, args):
         """Quits the program."""

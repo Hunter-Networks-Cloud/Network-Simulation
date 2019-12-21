@@ -154,6 +154,8 @@ class Graph:
         else:
             print("Path not found.")
 
+    """
+    old scramble
     #method for randomizing positions of all but two nodes
     def scramble(self, source, destination):
         for node_id in range(self.num_nodes):
@@ -167,6 +169,30 @@ class Graph:
                 new_pos = resolveWithinRange(self, new_pos, self.cols, self.rows)                
                 new_node = Node(node_id, new_pos, self.nodes[source].radius)
                 self.nodes[node_id] = new_node
+    """
+
+    #method for randomizing positions of all but two nodes
+    def scramble(self, source, destination):
+        old_source = copy.deepcopy(self.nodes[source])
+        old_destination = copy.deepcopy(self.nodes[destination])
+        radius = self.nodes[source].radius
+
+        for node_id in range(self.num_nodes):
+            self.nodes.pop(node_id)
+            x = rand.randint(1, self.cols)
+            y = rand.randint(1, self.rows)
+            new_pos = (x, y)
+            
+            #resolving collisions and within-range-ness
+            new_pos = resolveWithinRange(self, new_pos, self.cols, self.rows) 
+                            
+            new_node = Node(node_id, new_pos, radius)
+            self.nodes[node_id] = new_node
+
+        self.nodes.pop(source)
+        self.nodes.pop(destination)
+        self.nodes[source] = old_source
+        self.nodes[destination] = old_destination
 
     #helper function printing terminal ASCII representation of graph
     def printGraph(self):
